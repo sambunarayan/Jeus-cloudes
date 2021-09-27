@@ -2,6 +2,7 @@ FROM maven:3.6.1-jdk-8 as builder
 LABEL description="Java Application builder"
 RUN git clone https://github.com/sambunarayan/jeus-apis.git
 WORKDIR jeus-apis/jeus-echo
+RUN git pull
 RUN mvn install
 
 FROM payara/server-full:latest
