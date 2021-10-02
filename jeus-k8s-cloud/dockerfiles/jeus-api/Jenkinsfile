@@ -1,0 +1,28 @@
+pipeline {
+  agent any
+  stages {
+    stage('git scm update') {
+      steps {
+        git url: 'https://github.com/sambunarayan/Jeus-cloudes.git', branch: 'main'
+      }
+    }
+    stage('docker build and push') {
+      steps {
+        sh '''
+          docker build -t 192.168.2.10:8443/jeus-echo .
+          docker push 192.168.2.10:8443/jeus-echo
+        '''
+      }
+    }
+    stage {
+      steps {
+        sh '''
+        kubectl create deployment jeus-echo-prod --image=192.168.2.10:8443/jeus-echo
+        kubectl expose deployment jeus-echo-prod --type=LoadBalancer --port=8080 --name=jeus-echo-svc
+        '''
+      }
+    }
+  }
+
+
+}
