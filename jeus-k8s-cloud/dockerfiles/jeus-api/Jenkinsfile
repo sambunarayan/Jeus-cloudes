@@ -14,7 +14,7 @@ pipeline {
         '''
       }
     }
-    stage {
+    stage('deploy kubernetes') {
       steps {
         sh '''
         kubectl create deployment jeus-echo-prod --image=192.168.2.10:8443/jeus-echo
