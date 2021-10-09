@@ -24,7 +24,7 @@ spec:
         - name: log-volume
           mountPath: /opt/payara/appserver/glassfish/domains/domain1/logs
         ports:
-        -  containerPort:8080
+        -  containerPort: 8080
       volumes:
         - name: config-volume
           configMap:
