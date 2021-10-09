@@ -17,7 +17,7 @@ spec:
         spec:
           containers:
           - name: jeus-echo
-            image: 
+            image: 192.168.2.10:8443/jeus-echo
             imagePullPolicy: Always
             volumeMounts:
             - name: config-volume
