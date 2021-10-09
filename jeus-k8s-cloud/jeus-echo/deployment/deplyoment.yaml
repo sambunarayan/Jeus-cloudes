@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jeus-echo
+  labels:
+    app: jeus-echo
+
+spec:
+  selector:
+    matchLabels:
+      app: jeus-echo
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          app: jeus-echo
+        spec:
+          containers:
+          - name: jeus-echo
+            image: 
+            imagePullPolicy: Always
+            volumeMounts:
+            - name: config-volume
+              mountPath: /opt/payara/appserver/glassfish/domains/domain1/config/
+            - name: log-volume
+              mountPath: /opt/payara/appserver/glassfish/domains/domain1/logs
+            ports:
+            -  containerPort:8080
+          volumes:
+            - name: config-volume
+              configMap:
+                name: jeus-echo-configmap
+            - name: log-volume
+              emptyDir:
+                {}
