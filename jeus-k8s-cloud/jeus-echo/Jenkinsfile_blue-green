@@ -32,17 +32,6 @@ pipeline {
         git url: 'https://github.com/sambunarayan/Jeus-cloudes.git', branch: 'main'
       }
     }
-    stage('docker build and push') {
-      steps {
-        dir ('jeus-k8s-cloud/jeus-echo') {
-        sh "pwd"
-          sh '''
-            docker build -t 192.168.2.10:8443/jeus-echo .
-            docker push 192.168.2.10:8443/jeus-echo
-          '''
-        }
-      }
-    }
     stage('define tag'){
       steps {
         script {
@@ -57,7 +46,7 @@ pipeline {
     stage('deploy configmap and deployment'){
       steps {
         container('kustomize'){
-          dir('deployment'){
+          dir('jeus-k8s-cloud/jeus-echo/deployment'){
             sh '''
             kubectl apply -f configmap.yaml
             kustomize create --resources ./deployment.yaml
@@ -76,7 +65,7 @@ pipeline {
     stage('switching LB'){
       steps {
         container('kustomize'){
-          dir('service'){
+          dir('jeus-k8s-cloud/jeus-echo/service'){
             sh '''
             kustomize create --resources ./lb.yaml
             while true;
