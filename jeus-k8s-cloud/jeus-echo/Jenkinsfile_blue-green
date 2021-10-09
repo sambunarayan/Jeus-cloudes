@@ -34,8 +34,8 @@ pipeline {
     }
     stage('docker build and push') {
       steps {
-        sh "pwd"
         dir ('jeus-k8s-cloud/jeus-echo') {
+        sh "pwd"
           sh '''
             docker build -t 192.168.2.10:8443/jeus-echo .
             docker push 192.168.2.10:8443/jeus-echo
