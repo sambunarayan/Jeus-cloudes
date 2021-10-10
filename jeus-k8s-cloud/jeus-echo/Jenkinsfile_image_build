@@ -17,13 +17,5 @@ pipeline {
         }
       }
     }
-    stage('deploy kubernetes') {
-      steps {
-        sh '''
-        kubectl create deployment jeus-echo-prod --image=192.168.2.10:8443/jeus-echo
-        kubectl expose deployment jeus-echo-prod --type=LoadBalancer --port=8080 --name=jeus-echo-svc
-        '''
-      }
-    }
   }
 }
