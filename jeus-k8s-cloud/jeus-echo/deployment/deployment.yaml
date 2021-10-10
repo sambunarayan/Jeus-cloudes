@@ -18,3 +18,10 @@ spec:
       - name: jeus-echo
         image: 192.168.2.10:8443/jeus-echo
         imagePullPolicy: Always
+        volumeMounts:
+        - name: log-volume
+          mountPath: /opt/payara/appserver/glassfish/domains/domain1/logs
+      volumes:
+        - name: log-volume
+          emptyDir:
+            {}
