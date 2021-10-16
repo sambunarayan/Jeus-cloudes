@@ -16,6 +16,9 @@ spec:
       creationTimestamp: null
       labels:
         app: jeus-echo
+      annotations:
+        prometheus.io/port: "80"
+        prometheus.io/scrape: "true"
     spec:
       containers:
       - image: 192.168.2.10:8443/jeus-echo
