@@ -6,7 +6,7 @@ pipeline {
         git url: 'https://github.com/sambunarayan/Jeus-cloudes.git', branch: 'main'
         dir ('jeus-k8s-cloud/jeus-echo') {
           sh '''
-            git pull
+            git pull --set-upstream-to=origin/main main
           '''
         }
       }
