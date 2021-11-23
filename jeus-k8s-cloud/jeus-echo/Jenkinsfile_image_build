@@ -13,6 +13,7 @@ pipeline {
           sh '''
             docker build -t 192.168.2.10:8443/jeus-echo .
             docker push 192.168.2.10:8443/jeus-echo
+            docker rmi -f $(docker images -f dangling=true -q)
           '''
         }
       }

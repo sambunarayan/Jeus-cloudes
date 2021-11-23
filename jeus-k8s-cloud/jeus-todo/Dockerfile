@@ -1,25 +1,16 @@
 #Build Application
 FROM openjdk:8 AS builder
+RUN apt-get clean
+ADD dummyfile .
 RUN git clone https://github.com/sambunarayan/jeus-apis.git
-WORKDIR jeus-apis
+WORKDIR jeus-apis/jeus-todo/
+ADD application-oauth.properties src/main/resources
 RUN git pull
-RUN ls -ltr .
-
-FROM gradle:7.3.0-jdk11-alpine AS build
-COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src
-COPY --from=builder jeus-apis/jeus-todo/* /home/gradle/src/
-RUN ls -ltr .
-RUN gradle --version
-RUN gradle build --no-daemon
-
-USER root
-#RUN chmod 777 gradlew
-RUN pwd
-RUN ["gradlew", "build"]
+RUN chmod 777 *
+RUN ./gradlew clean build
 
 FROM gcr.io/distroless/java:8
 EXPOSE 60433
-COPY --from=build /home/gradle/src/build/libs/jeus-todo-1.0-SNAPSHOT.jar /opt/jeus-todo-1.0-SNAPSHOT.jar
+COPY --from=builder jeus-apis/jeus-todo/build/libs/jeus-todo-1.0.0.jar /opt/jeus-todo-1.0.0.jar
 WORKDIR /opt
-ENTRYPOINT ["java", "-jar", "jeus-todo-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "jeus-todo-1.0.0.jar"]

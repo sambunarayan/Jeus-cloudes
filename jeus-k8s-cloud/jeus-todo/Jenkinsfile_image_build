@@ -1,0 +1,21 @@
+pipeline {
+  agent any
+  stages {
+    stage('git scm update') {
+      steps {
+        git url: 'https://github.com/sambunarayan/Jeus-cloudes.git', branch: 'main'
+      }
+    }
+    stage('create docker image') {
+      steps {
+        dir ('jeus-k8s-cloud/jeus-todo') {
+          sh '''
+              docker build -t 192.168.2.10:8443/jeus-todo .
+              docker push 192.168.2.10:8443/jeus-todo
+              docker rmi -f $(docker images -f dangling=true -q)
+            '''
+        }
+      }
+    }
+  }
+}
