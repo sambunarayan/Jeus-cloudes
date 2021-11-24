@@ -1,7 +1,5 @@
 #Build Application
 FROM openjdk:8 AS builder
-RUN apt-get clean
-ADD dummyfile .
 RUN git clone https://github.com/sambunarayan/jeus-apis.git
 WORKDIR jeus-apis/jeus-todo/
 ADD application-oauth.properties src/main/resources
