@@ -1,0 +1,11 @@
+#Build Application
+FROM openjdk:11 AS builder
+RUN git clone https://github.com/sambunarayan/jeus-blog.git
+WORKDIR jeus-blog
+RUN ./gradlew clean build -Penv=stg
+
+FROM gcr.io/distroless/java:11
+EXPOSE 60434
+COPY --from=builder jeus-blog/build/libs/jeus-blog-1.0.jar /opt/jeus-blog-1.0.jar
+WORKDIR /opt
+ENTRYPOINT ["java", "-jar", "jeus-blog-1.0.jar"]
