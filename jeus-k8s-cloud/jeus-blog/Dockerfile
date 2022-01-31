@@ -6,8 +6,8 @@ WORKDIR jeus-blog
 RUN chmod 700 gradlew
 RUN ./gradlew clean build -Penv=stg
 
-FROM gcr.io/distroless/java:11
+FROM openjdk:11
 EXPOSE 60434
-COPY --from=builder jeus-blog/build/libs/jeus-blog-1.0.jar /opt/jeus-blog-1.0.jar
-WORKDIR /opt
+COPY --from=builder jeus-blog/build/libs/jeus-blog-1.0.jar /usr/src/myapp/jeus-blog-1.0.jar
+WORKDIR /usr/src/myapp
 ENTRYPOINT ["java", "-jar", "jeus-blog-1.0.jar"]
