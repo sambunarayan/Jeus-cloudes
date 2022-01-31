@@ -2,6 +2,7 @@
 FROM openjdk:11 AS builder
 LABEL description="Jeus blog builder"
 RUN git clone https://github.com/sambunarayan/jeus-blog.git
+RUN git pull
 WORKDIR jeus-blog
 RUN chmod 700 gradlew
 RUN ./gradlew clean build -Penv=stg
