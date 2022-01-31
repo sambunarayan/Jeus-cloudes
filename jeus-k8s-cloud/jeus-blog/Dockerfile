@@ -5,7 +5,7 @@ RUN git clone https://github.com/sambunarayan/jeus-blog.git
 WORKDIR jeus-blog
 RUN git pull
 RUN chmod 700 gradlew
-RUN ./gradlew clean build -Penv=stg
+RUN ./gradlew clean build -Penv=stg -x test
 
 FROM openjdk:11
 EXPOSE 60434
