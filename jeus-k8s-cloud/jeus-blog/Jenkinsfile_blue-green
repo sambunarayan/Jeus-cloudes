@@ -6,8 +6,8 @@ pipeline {
       kind: Pod
       metadata:
         labels:
-          app: jeus-echo-deploy
-        name: jeus-echo-deploy
+          app: jeus-blog-deploy
+        name: jeus-blog-deploy
       spec:
         containers:
         - name: kustomize
@@ -51,9 +51,8 @@ pipeline {
     stage('deploy configmap and deployment'){
       steps {
         container('kustomize'){
-          dir('jeus-k8s-cloud/jeus-echo/deployment'){
+          dir('jeus-k8s-cloud/jeus-blog/deployment'){
             sh '''
-            kubectl apply -f configmap.yaml
             kustomize create --resources ./deployment.yaml
             echo "deploy new deployment"
             kustomize edit add label deploy:$tag -f
@@ -69,16 +68,16 @@ pipeline {
     stage('switching LB'){
       steps {
         container('kustomize'){
-          dir('jeus-k8s-cloud/jeus-echo/service'){
+          dir('jeus-k8s-cloud/jeus-blog/service'){
             sh '''
             kustomize create --resources ./lb.yaml
             while true;
             do
               export replicas=$(kubectl get deployments \
-              --selector=app=jeus-echo,deploy=$tag \
+              --selector=app=jeus-blog,deploy=$tag \
               -o jsonpath --template="{.items[0].status.replicas}")
               export ready=$(kubectl get deployments \
-              --selector=app=jeus-echo,deploy=$tag \
+              --selector=app=jeus-blog,deploy=$tag \
               -o jsonpath --template="{.items[0].status.readyReplicas}")
               echo "total replicas: $replicas, ready replicas: $ready"
               if [ "$ready" -eq "$replicas" ]; then
@@ -86,7 +85,7 @@ pipeline {
                 kustomize edit add label deploy:$tag -f
                 kustomize build . | kubectl apply -f -
                 echo "delete $tag deployment"
-                kubectl delete deployment --selector=app=jeus-echo,deploy!=$tag
+                kubectl delete deployment --selector=app=jeus-blog,deploy!=$tag
                 kubectl get deployments -o wide
                 break
               else
