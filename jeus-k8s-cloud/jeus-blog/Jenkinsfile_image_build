@@ -1,0 +1,22 @@
+pipeline {
+  agent any
+  stages {
+    stage('git scm update') {
+      steps {
+        git url: 'https://github.com/sambunarayan/jeus-blog.git', branch: 'main'
+      }
+    }
+    stage('docker build and push') {
+      steps {
+        sh "pwd"
+        dir ('jeus-blog') {
+          sh '''
+            docker build -t 192.168.2.10:8443/jeus-blog-img .
+            docker push 192.168.2.10:8443/jeus-echo-img
+            docker rmi -f $(docker images -f dangling=true -q)
+          '''
+        }
+      }
+    }
+  }
+}
