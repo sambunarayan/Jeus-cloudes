@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jeus-blog-stg
+  labels:
+    app: jeus-blog
+spec:
+  selector:
+    matchLabels:
+      app: jeus-blog
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jeus-blog
+    spec:
+      containers:
+      - name: jeus-blog
+        image: 192.168.2.10:8443/jeus-blog-img
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: log-volume
+          mountPath: /audit
+      volumes:
+        - name: log-volume
+          persistentVolumeClaim:
+            claimName: jeus-blog-pvc
