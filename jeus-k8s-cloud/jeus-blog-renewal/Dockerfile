@@ -4,9 +4,9 @@ LABEL description="Jeus blog builder"
 WORKDIR jeus-blog
 RUN git clone https://github.com/sambunarayan/jeus-blog-renewal.git
 WORKDIR jeus-blog-renewal
+WORKDIR git pull
 RUN chmod 700 mvnw
 RUN mvn instal clean -P staging
 
-COPY ./target/jeus-blog-renewal-1.0.jar /opt/jeus-blog-renewal-1.0.jar
-WORKDIR /opt
+WORKDIR target
 ENTRYPOINT [ "java", "-jar", "jeus-blog-renewal-1.0.jar" ]
