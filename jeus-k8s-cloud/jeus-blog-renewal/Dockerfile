@@ -3,7 +3,7 @@ FROM openjdk:11 AS builder
 LABEL description="Jeus blog builder"
 RUN git clone https://github.com/sambunarayan/jeus-blog-renewal.git
 WORKDIR jeus-blog-renewal
-WORKDIR git pull
+RUN git pull
 RUN chmod 700 mvnw
 RUN mvnw clean install -P staging
 
