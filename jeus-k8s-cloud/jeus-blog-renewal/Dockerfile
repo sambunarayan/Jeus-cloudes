@@ -5,7 +5,7 @@ RUN git clone https://github.com/sambunarayan/jeus-blog-renewal.git
 WORKDIR jeus-blog-renewal
 RUN git pull
 RUN chmod 700 mvnw
-RUN mvnw clean install -P staging
+RUN ./mvnw clean install -P staging
 
 EXPOSE 8080
 COPY --from=builder jeus-blog-renewal/target/jeus-blog-renewal-1.0.jar /usr/src/myapp/jeus-blog-renewal-1.0.jar
