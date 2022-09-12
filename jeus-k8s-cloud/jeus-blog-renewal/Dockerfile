@@ -7,6 +7,7 @@ RUN git pull
 RUN chmod 700 mvnw
 RUN ./mvnw clean install -P staging
 
+FROM openjdk:11
 EXPOSE 8080
 COPY --from=builder jeus-blog-renewal/target/jeus-blog-renewal-1.0.jar /usr/src/myapp/jeus-blog-renewal-1.0.jar
 WORKDIR /usr/src/myapp
