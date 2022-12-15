@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jeus-echo
+  name: jeus-echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jeus-echo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jeus-echo
+    spec:
+      containers:
+      - image: 192.168.2.10:8443/jeus-echo
+        name: jeus-echo
+        resources: {}
+status: {}
