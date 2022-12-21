@@ -9,7 +9,7 @@ pipeline {
     stage('docker build and push') {
       steps {
         sh "pwd"
-        dir ('jeus-k8s-cloud/jeus-blog') {
+        dir ('jeus-k8s-cloud/jeus-blog-renewal') {
           sh '''
             docker build -t 192.168.2.10:8443/jeus-blog-img .
             docker push 192.168.2.10:8443/jeus-blog-img
