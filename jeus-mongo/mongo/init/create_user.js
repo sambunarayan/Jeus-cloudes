@@ -1,10 +1,10 @@
-db = db.getSiblingDB("sampledb");
+db = db.getSiblingDB("appdb");
 db.createUser({
   user: "sampleuser",
   pwd: "sampleuser",
   roles: [
-    { role : "dbOwner", db : "sampledb" },
-    { role : "dbAdmin", db : "sampledb" },
-    { role : "readWrite", db : "sampledb" },
+    { role : "dbOwner", db : "appdb" },
+    { role : "dbAdmin", db : "appdb" },
+    { role : "readWrite", db : "appdb" },
   ]
 });
