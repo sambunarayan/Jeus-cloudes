@@ -5,6 +5,6 @@ db.createUser({
   roles: [
     { role : "dbOwner", db : "appdb" },
     { role : "dbAdmin", db : "appdb" },
-    { role : "readWrite", db : "appdb" },
+    { role : "readWrite", db : "appdb" }
   ]
 });
