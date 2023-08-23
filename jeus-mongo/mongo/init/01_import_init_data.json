@@ -1,0 +1,29 @@
+[
+  {
+    "customerId": "USR00001",
+    "customerName": "Store Customer 01",
+    "age": 35,
+    "orders": [
+      {
+        "orderId": "ORD00001",
+        "totalPrice": 440
+      },
+      {
+        "orderId": "ORD00002",
+        "totalPrice": 2000
+      }
+    ]
+  },
+  {
+    "customerId": "USR00002",
+    "customerName": "Store Customer 02",
+    "age": 42
+    "orders": [
+      {
+        "orderId": "ORD00003",
+        "totalPrice": 4100,
+        "orderedProducts":
+      }
+    ]
+  }
+]
