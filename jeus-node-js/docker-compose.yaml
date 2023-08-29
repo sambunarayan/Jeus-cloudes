@@ -3,6 +3,7 @@ version: '3'
 services:
   app:
     image: node:lts
+    restart: always
     container_name: jeus-node-js
     tty: true
     ports:
