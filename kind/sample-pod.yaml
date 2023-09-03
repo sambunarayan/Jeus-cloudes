@@ -1,37 +1,33 @@
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
-  name: foo-app
+  name: nginx
   labels:
-    app: http-echo
+    app.kubernetes.io/name: proxy
 spec:
   containers:
-  - name: foo-app
-    image: hashicorp/http-echo:0.2.3
-    args:
-    - "-text=foo"
+  - name: nginx
+    image: nginx:stable
+    ports:
+      - containerPort: 80
+        name: http-web-svc
+
 ---
-kind: Pod
 apiVersion: v1
-metadata:
-  name: bar-app
-  labels:
-    app: http-echo
-spec:
-  containers:
-  - name: bar-app
-    image: hashicorp/http-echo:0.2.3
-    args:
-    - "-text=bar"
----
 kind: Service
-apiVersion: v1
 metadata:
-  name: foo-service
+  name: nginx-service
 spec:
-  type: LoadBalancer
   selector:
-    app: http-echo
+    app.kubernetes.io/name: proxy
   ports:
-  # Default port used by the image
-  - port: 5678
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+  clusterIP: 10.96.0.1
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.0.2.127
