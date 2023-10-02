@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jeus-nginx-deployment
+  labels:
+    app: jeus-nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jeus-nginx
+  template:
+    metadata:
+      labels:
+        app: jeus-nginx
+    spec:
+      containers:
+      - name: jeus-nginx
+        image: jeus-nginx:latest
+        ports:
+        - containerPort: 80
