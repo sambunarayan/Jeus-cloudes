@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: jeus-nginx
-        image: jeus-nginx:latest
+        image: jeus-nginx:0.0.1
         ports:
         - containerPort: 8
