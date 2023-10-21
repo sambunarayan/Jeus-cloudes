@@ -18,4 +18,4 @@ spec:
       - name: jeus-nginx
         image: jeus-nginx:0.0.1
         ports:
-        - containerPort: 8
+        - containerPort: 80
